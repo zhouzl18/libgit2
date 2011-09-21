@@ -385,7 +385,7 @@ char* p_getenv(const char* name)
 
 	len++;  /* Null Terminator */
 	buf = malloc(sizeof(wchar_t) * len);
-	GetEnvironmentVariable(name_w, buf, len);
+	GetEnvironmentVariableW(name_w, buf, len);
 
 	ret = conv_utf16_to_utf8(buf);
 
