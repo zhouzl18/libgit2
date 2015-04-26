@@ -61,7 +61,16 @@ support for HTTPS connections insead of OpenSSL.
   put into the reflog as the source/target.
 
 * `git_index_add_frombuffer()` can now create a blob from memory
-   buffer and add it to the index which is attached to a repository.
+  buffer and add it to the index which is attached to a repository.
+
+* `git_commit_create_fromstate()` is a variant of the commit creation
+  function which behaves closer to `git-commit` by taking the parents
+  and tree from the current branch and the index.
+
+* `git_commit_create_on()` takes on the role which
+  `git_commit_create()` had when provided a reference name to
+  update. `git_commit_create_on_head()` always updates the current
+  branch.
 
 ### API removals
 
@@ -118,6 +127,8 @@ support for HTTPS connections insead of OpenSSL.
   takes a `git_rebase_options` and only the `git_rebase_init` and
   `git_rebase_open` functions take a `git_rebase_options`, where they
   will persist the options to subsequent `git_rebase` calls.
+
+* `git_commit_create()` has been renamed to `git_commit_create_on()`.
 
 v0.22
 ------
