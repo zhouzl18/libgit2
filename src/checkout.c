@@ -1849,11 +1849,6 @@ static int checkout_create_submodules(
 	git_diff_delta *delta;
 	size_t i;
 
-	/* initial reload of submodules if .gitmodules was changed */
-	if (data->reload_submodules &&
-		(error = git_submodule_reload_all(data->repo, 1)) < 0)
-		return error;
-
 	git_vector_foreach(&data->diff->deltas, i, delta) {
 		if (actions[i] & CHECKOUT_ACTION__DEFER_REMOVE) {
 			/* this has a blocker directory that should only be removed iff
@@ -1874,8 +1869,7 @@ static int checkout_create_submodules(
 		}
 	}
 
-	/* final reload once submodules have been updated */
-	return git_submodule_reload_all(data->repo, 1);
+	return 0;
 }
 
 static int checkout_lookup_head_tree(git_tree **out, git_repository *repo)
