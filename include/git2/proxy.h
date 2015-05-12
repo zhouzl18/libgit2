@@ -28,8 +28,32 @@ typedef enum {
 typedef struct {
 	unsigned int version;
 
+	/**
+	 * The type of proxy to use, by URL, auto-detect.
+	 */
 	git_proxy_t type;
+
+	/**
+	 * The URL of the proxy.
+	 */
 	const char *url;
+
+	/**
+	 * This will be called if the remote host requires
+	 * authentication in order to connect to it.
+	 *
+	 * Returning GIT_PASSTHROUGH will make libgit2 behave as
+	 * though this field isn't set.
+	 */
+	git_cred_acquire_cb credentials;
+
+	/**
+	 * If cert verification fails, this will be called to let the
+	 * user make the final decision of whether to allow the
+	 * connection to proceed. Returns 1 to allow the connection, 0
+	 * to disallow it or a negative value to indicate an error.
+	 */
+        git_transport_certificate_check_cb certificate_check;
 } git_proxy_options;
 
 #define GIT_PROXY_OPTIONS_VERSION 1
