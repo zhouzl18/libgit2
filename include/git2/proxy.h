@@ -11,9 +11,24 @@
 
 GIT_BEGIN_DECL
 
+/**
+ * The type of proxy to use.
+ */
+typedef enum {
+	/**
+	 * Try to auto-detect the proxy from the git configuration.
+	 */
+	GIT_PROXY_AUTO,
+	/**
+	 * The proxy is specified by the url field.
+	 */
+	GIT_PROXY_URL,
+} git_proxy_t;
+
 typedef struct {
 	unsigned int version;
 
+	git_proxy_t type;
 	const char *url;
 } git_proxy_options;
 
